@@ -4,19 +4,17 @@ import { supabase } from "@/lib/supabaseClient";
 import { FaGoogle } from "react-icons/fa";
 
 export default function LoginPage() {
+
   const signIn = async () => {
-  const callbackUrl = `${window.location.origin}/auth/callback`;
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: "https://smart-bookmarks-app-three.vercel.app/",
+      },
+    });
 
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: callbackUrl,
-    },
-  });
-
-  if (error) console.error(error);
-};
-
+    if (error) console.error(error);
+  };
 
   return (
     <div className="flex justify-center items-center bg-neutral-500 h-screen">
