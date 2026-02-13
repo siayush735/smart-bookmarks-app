@@ -5,15 +5,18 @@ import { FaGoogle } from "react-icons/fa";
 
 export default function LoginPage() {
   const signIn = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: "http://localhost:3000/",
-      },
-    });
+  const callbackUrl = `${window.location.origin}/auth/callback`;
 
-    if (error) console.error(error);
-  };
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: callbackUrl,
+    },
+  });
+
+  if (error) console.error(error);
+};
+
 
   return (
     <div className="flex justify-center items-center bg-neutral-500 h-screen">
